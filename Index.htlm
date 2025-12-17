@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programme Complet - Guitare Séga & Théorie Musicale</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+      background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      min-height:100vh;
+      padding:20px;
+    }
+    .container{
+      max-width:1200px;margin:0 auto;background:#fff;border-radius:20px;
+      box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden
+    }
+    header{
+      background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);
+      color:#fff;padding:40px;text-align:center
+    }
+    h1{font-size:2.5em;margin-bottom:10px;text-shadow:2px 2px 4px rgba(0,0,0,.2)}
+    .subtitle{font-size:1.2em;opacity:.95}
+    nav{background:#2d3436;padding:0;position:sticky;top:0;z-index:100}
+    nav ul{list-style:none;display:flex;flex-wrap:wrap;justify-content:center}
+    nav li{flex:1;min-width:150px}
+    nav a{
+      display:block;color:#fff;text-decoration:none;padding:15px;text-align:center;
+      transition:background .3s
+    }
+    nav a:hover{background:#636e72}
+    .content{padding:40px}
+
+    .phase{
+      margin-bottom:50px;padding:30px;background:#f8f9fa;border-radius:15px;
+      border-left:5px solid #f5576c
+    }
+    .phase h2{color:#2d3436;margin-bottom:20px;font-size:2em}
+    .week{
+      background:#fff;padding:20px;margin:20px 0;border-radius:10px;
+      box-shadow:0 2px 10px rgba(0,0,0,.1)
+    }
+    .week h3{color:#f5576c;margin-bottom:15px;font-size:1.5em}
+
+    .day-exercise{
+      background:#e8f4f8;padding:15px;margin:10px 0;border-radius:8px;
+      border-left:3px solid #74b9ff
+    }
+    .day-exercise h4{color:#0984e3;margin-bottom:10px}
+
+    .exercise-list{list-style:none;padding-left:20px}
+    .exercise-list li{margin:8px 0;padding-left:25px;position:relative}
+    .exercise-list li:before{content:"🎸";position:absolute;left:0}
+
+    .resource-section{
+      background:#fff3cd;padding:20px;border-radius:10px;margin:20px 0;
+      border:2px solid #ffc107
+    }
+    .resource-section h2{margin-bottom:10px}
+    .resource-section h3{color:#856404;margin-bottom:15px}
+    .resource-links{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:15px;margin-top:15px
+    }
+    .resource-link{
+      background:#fff;padding:15px;border-radius:8px;text-decoration:none;color:#333;
+      border:2px solid #e9ecef;transition:all .3s
+    }
+    .resource-link:hover{
+      border-color:#f5576c;transform:translateY(-2px);
+      box-shadow:0 5px 15px rgba(0,0,0,.1)
+    }
+    .resource-link h4{color:#f5576c;margin-bottom:5px}
+
+    .daily-practice{
+      background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%);
+      padding:30px;border-radius:15px;margin:30px 0
+    }
+    .daily-practice h3{color:#2d3436;margin-bottom:20px;text-align:center}
+    .practice-timer{display:flex;justify-content:space-around;flex-wrap:wrap;gap:15px}
+    .timer-block{
+      background:#fff;padding:20px;border-radius:10px;text-align:center;
+      flex:1;min-width:150px;box-shadow:0 3px 10px rgba(0,0,0,.1)
+    }
+    .timer-block .time{font-size:2em;color:#f5576c;font-weight:bold}
+    .timer-block .activity{margin-top:10px;color:#636e72}
+
+    .progress-tracker{
+      background:#e8f8f5;padding:25px;border-radius:10px;margin:20px 0;
+      border:2px solid #00b894
+    }
+    .progress-tracker h3{color:#00b894;margin-bottom:15px}
+    .checkbox-list{list-style:none}
+    .checkbox-list li{
+      margin:10px 0;padding:10px;background:#fff;border-radius:5px;
+      display:flex;align-items:center;gap:10px
+    }
+    .checkbox-list input[type="checkbox"]{width:20px;height:20px;cursor:pointer}
+
+    .tip-box{
+      background:#f0f3ff;padding:20px;border-radius:10px;margin:20px 0;
+      border-left:4px solid #5f27cd
+    }
+    .tip-box h4{color:#5f27cd;margin-bottom:10px}
+
+    .video-section{background:#ffebee;padding:20px;border-radius:10px;margin:20px 0}
+    .video-section h3{color:#c62828;margin-bottom:15px}
+    .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:15px}
+    .video-card{
+      background:#fff;padding:15px;border-radius:8px;
+      box-shadow:0 2px 8px rgba(0,0,0,.1)
+    }
+    .video-card h4{color:#d32f2f;margin-bottom:10px}
+
+    .tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+    .tab-button{
+      padding:10px 20px;background:#e9ecef;border:none;border-radius:5px;
+      cursor:pointer;transition:all .3s;font-size:1em
+    }
+    .tab-button.active{background:#f5576c;color:#fff}
+    .tab-content{display:none}
+    .tab-content.active{display:block}
+
+    .chord-diagram{
+      background:#fff;padding:20px;border-radius:10px;margin:15px 0;
+      box-shadow:0 2px 8px rgba(0,0,0,.1)
+    }
+    .chord-diagram h4{color:#2d3436;margin-bottom:15px}
+    .diagram-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}
+    .chord-box{text-align:center;padding:10px;background:#f8f9fa;border-radius:5px}
+
+    .theory-card{
+      background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%);
+      padding:25px;border-radius:15px;margin:20px 0
+    }
+    .theory-card h3{color:#2d3436;margin-bottom:15px}
+    .formula{
+      background:#fff;padding:10px;border-radius:5px;font-family:monospace;
+      font-size:1.05em;margin:10px 0;text-align:center
+    }
+
+    .button-cta{
+      display:inline-block;padding:15px 30px;
+      background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);
+      color:#fff;text-decoration:none;border-radius:50px;font-weight:bold;
+      transition:all .3s;box-shadow:0 5px 15px rgba(245,87,108,.3);margin:20px 0
+    }
+    .button-cta:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(245,87,108,.4)}
+    footer{background:#2d3436;color:#fff;text-align:center;padding:30px;margin-top:50px}
+
+    /* Intervalles - petites cartes */
+    .grid-2{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px
+    }
+    .mini-card{
+      background:#fff;padding:15px;border-radius:10px;border:2px solid #e9ecef;
+      box-shadow:0 2px 8px rgba(0,0,0,.06)
+    }
+    .mini-card h4{color:#2d3436;margin-bottom:10px}
+    .pill{
+      display:inline-block;padding:6px 10px;border-radius:999px;background:#f8f9fa;
+      border:1px solid #e9ecef;font-family:monospace;margin:4px 6px 0 0
+    }
+    .quiz{
+      background:#ffffff;padding:18px;border-radius:12px;border:2px solid #e9ecef;
+      box-shadow:0 2px 10px rgba(0,0,0,.08)
+    }
+    .quiz-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+    .quiz select,.quiz button,.quiz input{
+      padding:10px;border-radius:8px;border:1px solid #ced4da;font-size:1em
+    }
+    .quiz button{
+      border:none;cursor:pointer;background:#2d3436;color:#fff;transition:opacity .2s
+    }
+    .quiz button:hover{opacity:.9}
+    .quiz-result{
+      margin-top:12px;padding:12px;border-radius:10px;background:#f8f9fa;border:1px solid #e9ecef
+    }
+    .kbd{font-family:monospace;background:#f8f9fa;border:1px solid #e9ecef;border-bottom-width:3px;padding:2px 6px;border-radius:6px}
+
+    @media (max-width:768px){
+      h1{font-size:1.8em}
+      .content{padding:20px}
+      nav ul{flex-direction:column}
+      nav li{min-width:100%}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>🎸 Programme Complet de Guitare</h1>
+      <p class="subtitle">De l'Intermédiaire au Professionnel • Séga Réunionnais & Influences Africaines</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#intervalles">Intervalles</a></li>
+        <li><a href="#phase1">Phase 1</a></li>
+        <li><a href="#phase2">Phase 2</a></li>
+        <li><a href="#phase3">Phase 3</a></li>
+        <li><a href="#ressources">Ressources</a></li>
+        <li><a href="#pratique">Pratique</a></li>
+      </ul>
+    </nav>
+
+    <div class="content">
+
+      <!-- Introduction -->
+      <section id="introduction" class="phase">
+        <h2>🎯 Objectifs du Programme</h2>
+        <p>Ce programme de 12 semaines est conçu pour transformer ton jeu de guitare en développant :</p>
+        <ul class="exercise-list">
+          <li>Une compréhension profonde de la théorie musicale appliquée</li>
+          <li>Un style minimaliste et mélodique inspiré de Boubacar Traoré</li>
+          <li>La maîtrise du walking bass et des accords enrichis</li>
+          <li>Un répertoire professionnel pour hôtels et EHPAD</li>
+          <li>L'adaptation de ces techniques au séga réunionnais</li>
+        </ul>
+
+        <div class="tip-box">
+          <h4>💡 Comment utiliser ce programme</h4>
+          <p>
+            • Consacre 30 minutes par jour minimum<br>
+            • Suis l'ordre des phases mais adapte selon tes besoins<br>
+            • Utilise les ressources en ligne pour approfondir<br>
+            • Enregistre-toi régulièrement pour mesurer tes progrès
+          </p>
+        </div>
+      </section>
+
+      <!-- Intervalles -->
+      <section id="intervalles" class="phase">
+        <h2>🔑 Intervalles : la clé de l’impro et du manche</h2>
+        <p>
+          Si tu veux improviser “avec intention” (et pas juste en déroulant une gamme), tu dois penser en <strong>intervalles</strong>.
+          Un intervalle = la distance entre deux notes. C’est le langage réel de la mélodie, des accords, et des tensions/résolutions.
+        </p>
+
+        <div class="theory-card">
+          <h3>Référentiel rapide (en demi-tons)</h3>
+          <div class="formula">
+            0=Unisson • 1=2m • 2=2M • 3=3m • 4=3M • 5=4J • 6=Triton • 7=5J • 8=6m • 9=6M • 10=7m • 11=7M • 12=Octave
+          </div>
+          <p>
+            Pense “couleur” : <span class="kbd">3m</span> = mineur (mélancolie), <span class="kbd">3M</span> = majeur (lumière),
+            <span class="kbd">7m</span> = blues/folk, <span class="kbd">triton</span> = tension, <span class="kbd">2M/9</span> = ouverture.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="mini-card">
+            <h4>Intervalles essentiels pour improviser (priorité)</h4>
+            <div>
+              <span class="pill">1 (tonique)</span>
+              <span class="pill">b3 / 3</span>
+              <span class="pill">4</span>
+              <span class="pill">5</span>
+              <span class="pill">b7 / 7</span>
+              <span class="pill">2 (9)</span>
+              <span class="pill">6</span>
+            </div>
+            <p style="margin-top:10px;color:#636e72">
+              En pratique : sur une grille, vise les notes d’accord (1-3-5-7), puis “colore” avec 2/9, 4/11, 6/13.
+            </p>
+          </div>
+
+          <div class="mini-card">
+            <h4>Raccourcis guitare (repères ultra efficaces)</h4>
+            <ul class="exercise-list">
+              <li>Sur une même corde : 1 case = 2m ; 2 cases = 2M ; 3 = 3m ; 4 = 3M ; 5 = 4 ; 7 = 5 ; 12 = octave</li>
+              <li>Deux cordes adjacentes (accordage standard) : la plupart des formes se répètent, sauf entre Sol↔Si (décalage +1 case)</li>
+              <li>Un lick “passe partout” = viser 3 ou b3 selon la couleur, puis revenir à 1</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week">
+          <h3>Semaines 1 à 12 : fil rouge “Intervalles” (10 min/jour)</h3>
+
+          <div class="day-exercise">
+            <h4>Routine quotidienne (10 minutes)</h4>
+            <ul class="exercise-list">
+              <li><strong>2 min</strong> : chanter 1→3 (majeur) puis 1→b3 (mineur) sur une tonalité</li>
+              <li><strong>3 min</strong> : trouver 1, 3/b3, 5, b7 sur 2 positions CAGED</li>
+              <li><strong>3 min</strong> : improviser en ne jouant que 1–3–5–b7 (ou 1–b3–5–b7)</li>
+              <li><strong>2 min</strong> : ajouter 2/9 et 6 pour “ouvrir” (évite de tout jouer : choisis)</li>
+            </ul>
+          </div>
+
+          <div class="tip-box">
+            <h4>🎯 Objectif concret</h4>
+            <p>
+              À la fin du programme, tu dois pouvoir dire en jouant : “là je joue la <strong>tierce</strong>”, “là je vise la <strong>septième</strong>”, “là je crée une <strong>tension</strong> (4 ou triton) puis je résous”.
+              C’est ça, l’impro maîtrisée.
+            </p>
+          </div>
+        </div>
+
+        <div class="chord-diagram">
+          <h4>Formules d’accords = empilement d’intervalles</h4>
+          <div class="diagram-grid">
+            <div class="chord-box">
+              <strong>Majeur</strong><br>1 – 3 – 5
+            </div>
+            <div class="chord-box">
+              <strong>Mineur</strong><br>1 – b3 – 5
+            </div>
+            <div class="chord-box">
+              <strong>7 (dom.)</strong><br>1 – 3 – 5 – b7
+            </div>
+            <div class="chord-box">
+              <strong>m7</strong><br>1 – b3 – 5 – b7
+            </div>
+            <div class="chord-box">
+              <strong>maj7</strong><br>1 – 3 – 5 – 7
+            </div>
+            <div class="chord-box">
+              <strong>6</strong><br>1 – 3 – 5 – 6
+            </div>
+          </div>
+          <p style="margin-top:10px;color:#636e72">
+            Lecture rapide : dès que tu connais tes intervalles, tu comprends immédiatement pourquoi un accord “sonne” comme il sonne.
+          </p>
+        </div>
+
+        <div class="quiz">
+          <h4>Mini-quiz interactif : “Quel intervalle j’entends / je vise ?”</h4>
+          <p style="color:#636e72">
+            But : te forcer à penser “intervalle” au lieu de “cases au hasard”. Utilise-le en mode théorie, puis en mode guitare (trouve la note sur le manche).
+          </p>
+
+          <div class="quiz-row">
+            <label for="root">Tonique :</label>
+            <select id="root">
+              <option>Do</option><option>Do#</option><option>Ré</option><option>Ré#</option><option>Mi</option><option>Fa</option><option>Fa#</option><option>Sol</option><option>Sol#</option><option>La</option><option>La#</option><option>Si</option>
+            </select>
+
+            <label for="interval">Intervalle :</label>
+            <select id="interval">
+              <option value="0">Unisson (1)</option>
+              <option value="1">2m (b2)</option>
+              <option value="2">2M (2)</option>
+              <option value="3">3m (b3)</option>
+              <option value="4">3M (3)</option>
+              <option value="5">4J (4)</option>
+              <option value="6">Triton (#4/b5)</option>
+              <option value="7">5J (5)</option>
+              <option value="8">6m (b6)</option>
+              <option value="9">6M (6)</option>
+              <option value="10">7m (b7)</option>
+              <option value="11">7M (7)</option>
+              <option value="12">Octave (8)</option>
+            </select>
+
+            <button id="btnCalc" type="button">Calculer la note</button>
+            <button id="btnRand" type="button">Défi aléatoire</button>
+          </div>
+
+          <div id="quizResult" class="quiz-result">
+            Résultat : <strong>—</strong>
+          </div>
+
+          <div class="tip-box" style="margin-top:12px">
+            <h4>Exercice d’impro direct (ultra efficace)</h4>
+            <p>
+              Sur une boucle <span class="kbd">I – IV – V</span> (séga classique), impose-toi une règle :
+              <br>• 1er tour : seulement <span class="kbd">1–3–5</span>
+              <br>• 2e tour : ajoute <span class="kbd">b7</span>
+              <br>• 3e tour : ajoute <span class="kbd">2/9</span> (une seule fois par mesure)
+              <br>• 4e tour : ajoute <span class="kbd">4</span> comme tension, puis résous sur <span class="kbd">3</span>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 1 -->
+      <section id="phase1" class="phase">
+        <h2>📚 PHASE 1: Fondations Théoriques (Semaines 1-4)</h2>
+
+        <div class="week">
+          <h3>Semaine 1: Le Système CAGED</h3>
+
+          <div class="day-exercise">
+            <h4>Lundi - Mercredi: Découverte des 5 formes</h4>
+            <ul class="exercise-list">
+              <li>Identifier les formes C, A, G, E, D sur le manche</li>
+              <li>Jouer "Tite fleur aimée" dans 3 positions différentes</li>
+              <li>Créer un diagramme personnel du manche</li>
+            </ul>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Jeudi - Vendredi: Application au séga</h4>
+            <ul class="exercise-list">
+              <li>Analyser les accords typiques du séga (I - IV - V - VIm)</li>
+              <li>Transposer une chanson réunionnaise dans 2 tonalités</li>
+              <li>Pratiquer les changements d'accords en rythme ternaire</li>
+            </ul>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Weekend: Consolidation</h4>
+            <ul class="exercise-list">
+              <li>Enregistrement comparatif: même chanson, positions différentes</li>
+              <li>Improvisation libre utilisant le CAGED</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week">
+          <h3>Semaine 2: Les Degrés et l'Harmonisation</h3>
+
+          <div class="theory-card">
+            <h3>Formule d'harmonisation de la gamme majeure</h3>
+            <div class="formula">I(maj7) - IIm7 - IIIm7 - IV(maj7) - V7 - VIm7 - VIIm7b5</div>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Exercices quotidiens</h4>
+            <ul class="exercise-list">
+              <li>Jouer tous les degrés en Do majeur</li>
+              <li>Identifier les degrés dans 5 chansons réunionnaises</li>
+              <li>Créer des progressions originales avec les degrés</li>
+              <li>Substitutions diatoniques simples (I→VIm, IV→IIm)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week">
+          <h3>Semaines 3-4: Triades et Renversements</h3>
+
+          <div class="chord-diagram">
+            <h4>Les 3 positions de triades sur Mi-Si-Sol</h4>
+            <div class="diagram-grid">
+              <div class="chord-box"><strong>Fondamentale</strong><br>1 - 3 - 5</div>
+              <div class="chord-box"><strong>1er renversement</strong><br>3 - 5 - 1</div>
+              <div class="chord-box"><strong>2e renversement</strong><br>5 - 1 - 3</div>
+            </div>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Plan de travail</h4>
+            <ul class="exercise-list">
+              <li>Jour 1-2: Triades sur cordes aiguës (Mi-Si-Sol)</li>
+              <li>Jour 3-4: Triades sur cordes centrales (Si-Sol-Ré)</li>
+              <li>Jour 5-6: Connection triades-CAGED</li>
+              <li>Jour 7: Application aux mélodies séga</li>
+            </ul>
+          </div>
+
+          <div class="tip-box">
+            <h4>🎵 Astuce Boubacar Traoré</h4>
+            <p>Répète une triade 3-4 fois avant de changer. Cette répétition hypnotique est caractéristique du blues malien et s'adapte parfaitement au séga.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 2 -->
+      <section id="phase2" class="phase">
+        <h2>🎵 PHASE 2: Techniques Mélodiques (Semaines 5-8)</h2>
+
+        <div class="week">
+          <h3>Semaines 5-6: Walking Bass & Mélodie</h3>
+
+          <div class="theory-card">
+            <h3>Principe du Walking Bass adapté au Séga</h3>
+            <p>Le séga étant en 6/8 (ternaire), nous adaptons le walking bass jazz :</p>
+            <div class="formula">Mesure 6/8: Fond. - Tierce - Quinte | Fond. - Approche - Nouvelle Fond.</div>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Progression hebdomadaire</h4>
+            <ul class="exercise-list">
+              <li><strong>Lundi:</strong> Notes fondamentales sur temps forts</li>
+              <li><strong>Mardi:</strong> Ajout des tierces</li>
+              <li><strong>Mercredi:</strong> Intégration des quintes</li>
+              <li><strong>Jeudi:</strong> Approches chromatiques</li>
+              <li><strong>Vendredi:</strong> Lignes complètes sur progression I-IV-V</li>
+              <li><strong>Weekend:</strong> Application à "Ne me quitte pas" version séga</li>
+            </ul>
+          </div>
+
+          <div class="tip-box">
+            <h4>Technique du pouce indépendant</h4>
+            <p>Utilise ton pouce pour les basses (cordes graves) et index-majeur pour la mélodie. Commence lentement à 60 BPM.</p>
+          </div>
+        </div>
+
+        <div class="week">
+          <h3>Semaines 7-8: Accords Enrichis</h3>
+
+          <div class="chord-diagram">
+            <h4>Extensions essentielles pour le style recherché</h4>
+            <div class="diagram-grid">
+              <div class="chord-box"><strong>9ème</strong><br>1-3-5-7-9<br>Subtilité et couleur</div>
+              <div class="chord-box"><strong>6ème</strong><br>1-3-5-6<br>Douceur séga</div>
+              <div class="chord-box"><strong>sus4</strong><br>1-4-5<br>Tension/résolution</div>
+            </div>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Exercices d'enrichissement</h4>
+            <ul class="exercise-list">
+              <li>Transformer tous les accords de "Ôté grand-mère" en accords 9</li>
+              <li>Utiliser les 6èmes dans les cadences finales</li>
+              <li>Créer des mouvements mélodiques avec sus2/sus4</li>
+              <li>Substitutions: remplacer V7 par II-V</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 3 -->
+      <section id="phase3" class="phase">
+        <h2>🌟 PHASE 3: Développement du Style Personnel (Semaines 9-12)</h2>
+
+        <div class="week">
+          <h3>Semaines 9-10: Fusion Boubacar Traoré / Séga</h3>
+
+          <div class="tip-box">
+            <h4>Caractéristiques du style Boubacar Traoré</h4>
+            <p>
+              • Patterns répétitifs de 2-3 notes<br>
+              • Influences de la kora (harpe africaine)<br>
+              • Alternance basse/mélodie constante<br>
+              • Utilisation des silences<br>
+              • Phrasé blues avec inflexions africaines
+            </p>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Adaptation au séga</h4>
+            <ul class="exercise-list">
+              <li>Créer des ostinatos (patterns répétitifs) en 6/8</li>
+              <li>Utiliser la pentatonique mineure sur progressions majeures</li>
+              <li>Développer des intros minimalistes (3-4 notes max)</li>
+              <li>Travailler les bends subtils et les slides</li>
+              <li>Intégrer des percussions sur la caisse (technique africaine)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="week">
+          <h3>Semaines 11-12: Répertoire Professionnel</h3>
+
+          <div class="progress-tracker">
+            <h3>✅ Checklist Répertoire</h3>
+            <ul class="checkbox-list" id="repertoireChecklist">
+              <li><input type="checkbox"> 5 chansons réunionnaises arrangées</li>
+              <li><input type="checkbox"> 5 standards français adaptés</li>
+              <li><input type="checkbox"> 3 compositions originales style fusion</li>
+              <li><input type="checkbox"> 2 medleys pour animations</li>
+              <li><input type="checkbox"> Set de 45 minutes prêt</li>
+            </ul>
+          </div>
+
+          <div class="day-exercise">
+            <h4>Structure d'arrangement type pour hôtel/EHPAD</h4>
+            <ul class="exercise-list">
+              <li><strong>Intro (8 mesures):</strong> Mélodie en triades + walking bass doux</li>
+              <li><strong>Couplet 1:</strong> Accords simples, focus sur le chant</li>
+              <li><strong>Refrain:</strong> Ajout 7èmes et 9èmes pour richesse</li>
+              <li><strong>Pont:</strong> Solo minimaliste style Traoré</li>
+              <li><strong>Outro:</strong> Retour aux triades, ralenti naturel</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESSOURCES -->
+      <section id="ressources" class="resource-section">
+        <h2>📚 Ressources en Ligne</h2>
+
+        <h3>Théorie Musicale & CAGED</h3>
+        <div class="resource-links">
+          <a href="https://www.justinguitar.com/guitar-lessons/caged-system-introduction-im-111" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>JustinGuitar CAGED</h4>
+            <p>Introduction complète au système CAGED avec exercices pratiques</p>
+          </a>
+          <a href="https://www.appliedguitartheory.com/lessons/caged-guitar-theory-system/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Applied Guitar Theory</h4>
+            <p>Théorie approfondie du CAGED avec diagrammes</p>
+          </a>
+          <a href="https://www.pickupmusic.com/blog/mastering-triad-shapes-on-the-guitar-applying-the-caged-system" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Triades & CAGED</h4>
+            <p>Connection entre triades et système CAGED</p>
+          </a>
+        </div>
+
+        <h3>Walking Bass & Jazz</h3>
+        <div class="resource-links">
+          <a href="https://www.jazzguitarlessons.net/blog/walking-bass-with-chords-for-jazz-guitar" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Jazz Guitar Lessons</h4>
+            <p>Walking bass avec accords pour guitare jazz</p>
+          </a>
+          <a href="https://www.talkingbass.net/simple-walking-bass-line-for-jazz-beginners/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>TalkingBass</h4>
+            <p>Walking bass simple pour débutants (adaptable au séga)</p>
+          </a>
+          <a href="https://andylemaire.com/walking-bass/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Andy Lemaire</h4>
+            <p>Technique complète walking bass + accords</p>
+          </a>
+        </div>
+
+        <h3>Séga & Musique Réunionnaise</h3>
+        <div class="resource-links">
+          <a href="http://akordos.blogspot.com/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Akordos</h4>
+            <p>Accords et tablatures de séga réunionnais</p>
+          </a>
+          <a href="https://www.christophegauche.com/formationsega" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Formation Séga Maloya</h4>
+            <p>Cours complet sur les rythmiques séga</p>
+          </a>
+          <a href="https://segatabs.forumotion.com/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Sega Tabs</h4>
+            <p>Forum de partage de tablatures séga</p>
+          </a>
+        </div>
+
+        <h3>Inspiration Boubacar Traoré</h3>
+        <div class="resource-links">
+          <a href="https://www.youtube.com/results?search_query=boubacar+traore+guitar+lesson" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>YouTube - Boubacar Traoré</h4>
+            <p>Vidéos et tutoriels du style Traoré</p>
+          </a>
+          <a href="https://www.boubacartraore.com/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Site Officiel</h4>
+            <p>Biographie et discographie</p>
+          </a>
+        </div>
+
+        <h3>Intervalles (bonus)</h3>
+        <div class="resource-links">
+          <a href="https://www.musictheory.net/exercises/ear-interval" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>MusicTheory.net - Ear Training</h4>
+            <p>Entraînement auditif des intervalles (simple et efficace)</p>
+          </a>
+          <a href="https://www.musictheory.net/lessons/25" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>MusicTheory.net - Intervals</h4>
+            <p>Rappel clair sur les intervalles (théorie)</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- VIDÉOS -->
+      <section class="video-section">
+        <h3>🎥 Vidéos Essentielles</h3>
+        <div class="video-grid">
+          <div class="video-card">
+            <h4>CAGED System Explained</h4>
+            <p>Recherche YouTube: "CAGED system guitar complete guide"</p>
+            <p>Durée recommandée: 20-30 min</p>
+          </div>
+          <div class="video-card">
+            <h4>Walking Bass Jazz Guitar</h4>
+            <p>Recherche: "Joe Pass walking bass solo guitar"</p>
+            <p>Observe la technique du pouce indépendant</p>
+          </div>
+          <div class="video-card">
+            <h4>Boubacar Traoré Live</h4>
+            <p>Recherche: "Boubacar Traoré live performance"</p>
+            <p>Analyse du style minimaliste</p>
+          </div>
+          <div class="video-card">
+            <h4>Séga Guitar Tutorial</h4>
+            <p>Recherche: "Séga guitare La Réunion tutorial"</p>
+            <p>Comprendre le rythme ternaire</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRATIQUE -->
+      <section id="pratique" class="daily-practice">
+        <h3>⏱️ Plan de Pratique Quotidien (30 minutes)</h3>
+        <div class="practice-timer">
+          <div class="timer-block">
+            <div class="time">5 min</div>
+            <div class="activity">Échauffement<br>Gammes CAGED</div>
+          </div>
+          <div class="timer-block">
+            <div class="time">10 min</div>
+            <div class="activity">Technique du jour<br>(voir programme)</div>
+          </div>
+          <div class="timer-block">
+            <div class="time">10 min</div>
+            <div class="activity">Application<br>Sur une chanson</div>
+          </div>
+          <div class="timer-block">
+            <div class="time">5 min</div>
+            <div class="activity">Improvisation<br>Style libre</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- OUTILS PRATIQUES -->
+      <section class="phase">
+        <h2>🛠️ Outils Pratiques</h2>
+
+        <div class="tabs">
+          <button class="tab-button active" type="button" onclick="showTab(event,'tab1')">Cercle des Quintes</button>
+          <button class="tab-button" type="button" onclick="showTab(event,'tab2')">Progressions Séga</button>
+          <button class="tab-button" type="button" onclick="showTab(event,'tab3')">Formules d'Accords</button>
+          <button class="tab-button" type="button" onclick="showTab(event,'tab4')">Check-list Hebdo</button>
+        </div>
+
+        <div id="tab1" class="tab-content active">
+          <div class="theory-card">
+            <h3>Cercle des Quintes - Tonalités du Séga</h3>
+            <div class="formula">
+              Do → Sol → Ré → La → Mi → Si<br>
+              ↑ Tonalités courantes du séga ↑<br>
+              Fa ← Sib ← Mib ← Lab ← Réb ← Solb
+            </div>
+            <p>Les tonalités en <strong>gras</strong> sont les plus utilisées dans le séga réunionnais.</p>
+          </div>
+        </div>
+
+        <div id="tab2" class="tab-content">
+          <div class="chord-diagram">
+            <h4>Progressions Typiques du Séga</h4>
+            <ul class="exercise-list">
+              <li><strong>Classique:</strong> I - IV - V - I (Do - Fa - Sol - Do)</li>
+              <li><strong>Mélancolique:</strong> I - VIm - IV - V (Do - Lam - Fa - Sol)</li>
+              <li><strong>Maloya influence:</strong> Im - IV - Im - V (Dom - Fa - Dom - Sol)</li>
+              <li><strong>Modern séga:</strong> I - V - VIm - IV (Do - Sol - Lam - Fa)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div id="tab3" class="tab-content">
+          <div class="theory-card">
+            <h3>Formules des Accords Enrichis</h3>
+            <div class="formula">
+              Major 7: 1 - 3 - 5 - 7<br>
+              Minor 7: 1 - b3 - 5 - b7<br>
+              Dominant 7: 1 - 3 - 5 - b7<br>
+              Major 9: 1 - 3 - 5 - 7 - 9<br>
+              6th: 1 - 3 - 5 - 6<br>
+              sus4: 1 - 4 - 5<br>
+              sus2: 1 - 2 - 5
+            </div>
+          </div>
+        </div>
+
+        <div id="tab4" class="tab-content">
+          <div class="progress-tracker">
+            <h3>Check-list Hebdomadaire</h3>
+            <ul class="checkbox-list" id="weeklyChecklist">
+              <li><input type="checkbox"> Lundi: Théorie & CAGED</li>
+              <li><input type="checkbox"> Mardi: Triades & Renversements</li>
+              <li><input type="checkbox"> Mercredi: Walking Bass</li>
+              <li><input type="checkbox"> Jeudi: Accords Enrichis</li>
+              <li><input type="checkbox"> Vendredi: Style Boubacar</li>
+              <li><input type="checkbox"> Samedi: Répertoire</li>
+              <li><input type="checkbox"> Dimanche: Enregistrement</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONSEILS FINAUX -->
+      <section class="phase">
+        <h2>💫 Conseils pour Réussir</h2>
+
+        <div class="tip-box">
+          <h4>Pour le Séga Réunionnais</h4>
+          <p>
+            • Le rythme ternaire (6/8) est essentiel - compte "1-2-3, 4-5-6"<br>
+            • Les syncopes créent le "bounce" caractéristique<br>
+            • La simplicité mélodique permet l'émotion<br>
+            • L'utilisation des silences est cruciale
+          </p>
+        </div>
+
+        <div class="tip-box">
+          <h4>Pour le Style Boubacar Traoré</h4>
+          <p>
+            • Répétition hypnotique de patterns courts<br>
+            • Pouce indépendant pour les basses<br>
+            • Inflexions blues sur gamme pentatonique<br>
+            • Moins de notes, plus d'intention
+          </p>
+        </div>
+
+        <div class="tip-box">
+          <h4>Pour le Contexte Professionnel</h4>
+          <p>
+            • Volume modéré pour les espaces intimes<br>
+            • Répertoire varié mais cohérent<br>
+            • Interaction avec le public (sourire, contact visuel)<br>
+            • Adaptabilité selon l'ambiance
+          </p>
+        </div>
+      </section>
+
+      <!-- BONUS -->
+      <section class="resource-section">
+        <h2>🎁 Bonus: Applications & Outils</h2>
+        <div class="resource-links">
+          <a href="https://www.metronomeonline.com/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Métronome Online</h4>
+            <p>Pour travailler le timing en 6/8</p>
+          </a>
+          <a href="https://www.ireal.pro/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>iReal Pro</h4>
+            <p>Backing tracks pour improviser</p>
+          </a>
+          <a href="https://www.ultimate-guitar.com/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Ultimate Guitar</h4>
+            <p>Tablatures et accords</p>
+          </a>
+          <a href="https://www.fretboard-trainer.com/" class="resource-link" target="_blank" rel="noreferrer">
+            <h4>Fretboard Trainer</h4>
+            <p>Mémoriser le manche</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- CTA FINAL -->
+      <div style="text-align:center;margin:40px 0;">
+        <a href="#introduction" class="button-cta">↑ Retour au début du programme</a>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        Programme créé spécialement pour ton évolution musicale<br>
+        🎸 Pratique régulière + Passion = Succès 🎸<br>
+        <em>Bon courage dans ton parcours musical!</em>
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Tabs (corrigé : on passe event en paramètre)
+    function showTab(e, tabName) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById(tabName);
+      if (target) target.classList.add('active');
+      if (e && e.target) e.target.classList.add('active');
+    }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Sauvegarde stable des checkboxes (corrigé : clés stables par index et par liste)
+    function persistChecklist(listId, storagePrefix) {
+      const list = document.getElementById(listId);
+      if (!list) return;
+      const items = Array.from(list.querySelectorAll('li'));
+      items.forEach((li, i) => {
+        const box = li.querySelector('input[type="checkbox"]');
+        if (!box) return;
+        const key = storagePrefix + '_' + i;
+        box.checked = localStorage.getItem(key) === 'true';
+        box.addEventListener('change', () => localStorage.setItem(key, box.checked));
+      });
+    }
+    persistChecklist('weeklyChecklist', 'weekly');
+    persistChecklist('repertoireChecklist', 'repertoire');
+
+    // Animation au chargement
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '0';
+      setTimeout(() => {
+        document.body.style.transition = 'opacity 1s';
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+
+    // Quiz intervalles : calcul note
+    const NOTE_ORDER = ["Do","Do#","Ré","Ré#","Mi","Fa","Fa#","Sol","Sol#","La","La#","Si"];
+    const SEMI_TO_INTERVAL_NAME = {
+      0:"Unisson (1)",1:"2m (b2)",2:"2M (2)",3:"3m (b3)",4:"3M (3)",5:"4J (4)",
+      6:"Triton (#4/b5)",7:"5J (5)",8:"6m (b6)",9:"6M (6)",10:"7m (b7)",11:"7M (7)",12:"Octave (8)"
+    };
+
+    function idxOfNote(n){ return NOTE_ORDER.indexOf(n); }
+    function mod12(x){ return ((x % 12) + 12) % 12; }
+
+    const rootEl = document.getElementById('root');
+    const intervalEl = document.getElementById('interval');
+    const resEl = document.getElementById('quizResult');
+    const btnCalc = document.getElementById('btnCalc');
+    const btnRand = document.getElementById('btnRand');
+
+    function showResult(root, semi){
+      const r = idxOfNote(root);
+      const target = NOTE_ORDER[mod12(r + semi)];
+      resEl.innerHTML = 'Résultat : <strong>' + root + ' + ' + SEMI_TO_INTERVAL_NAME[semi] + ' = ' + target + '</strong>';
+    }
+
+    btnCalc.addEventListener('click', () => {
+      const root = rootEl.value;
+      const semi = parseInt(intervalEl.value, 10);
+      showResult(root, semi);
+    });
+
+    btnRand.addEventListener('click', () => {
+      const root = NOTE_ORDER[Math.floor(Math.random() * NOTE_ORDER.length)];
+      const semis = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+      const semi = semis[Math.floor(Math.random() * semis.length)];
+      rootEl.value = root;
+      intervalEl.value = String(semi);
+      showResult(root, semi);
+    });
+  </script>
+</body>
+</html>
